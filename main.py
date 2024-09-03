@@ -2,7 +2,9 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 from dotenv import load_dotenv
 import os
 
@@ -42,9 +44,18 @@ class InternetSpeedTwitterBot:
         print(f"up: {self.up}")
 
     def tweet_at_provider(self):
-        pass
+        self.driver.get('https://x.com/i/flow/login')
+
+        time.sleep(5)
+        email = self.driver.find_element(By.CSS_SELECTOR,'input[autocomplete="username"]')
+        email.send_keys(twitter_email, Keys.ENTER)
+        time.sleep(10)
+        password = self.driver.find_element(By.NAME, "password")
+        password.send_keys(twitter_password, Keys.ENTER)
+        time.sleep(5)
+
 
 
 bot = InternetSpeedTwitterBot()
-bot.get_internet_speed()
-#bot.tweet_at_provider()
+#bot.get_internet_speed()
+bot.tweet_at_provider()
